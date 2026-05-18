@@ -4,19 +4,27 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        cream: '#eef0e5',
-        paper: '#f4f3e8',
-        sage: '#6f7b55',
-        olive: '#4f5e38',
-        deep: '#2d3525',
-        ink: '#2f3328',
-        beige: '#dbd8c6'
+        cream: '#f2efe3',
+        paper: '#fbf5e8',
+        sage: '#72835b',
+        olive: '#4e6139',
+        deep: '#1f2a1f',
+        ink: '#2b3028',
+        beige: '#ded3bd',
+        terracotta: '#a95635',
+        gold: '#d9ad67',
+      },
+      fontFamily: {
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+        arabic: ['Cairo', 'Tahoma', 'Arial', 'sans-serif'],
       },
       boxShadow: {
-        book: '0 30px 80px rgba(47,51,40,.22)',
-        soft: '0 18px 45px rgba(47,51,40,.12)'
-      }
-    }
+        book: '0 30px 80px rgba(31,42,31,.24)',
+        soft: '0 18px 45px rgba(31,42,31,.12)',
+        lift: '0 35px 90px rgba(31,42,31,.28)',
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 };

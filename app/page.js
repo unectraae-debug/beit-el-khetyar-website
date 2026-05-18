@@ -1,52 +1,121 @@
 import Image from 'next/image';
 import MenuBook from '../components/MenuBook';
-import { MapPin, Phone, MessageCircle, Instagram, Facebook } from 'lucide-react';
+import {
+  ArrowRight,
+  Clock,
+  Facebook,
+  Flame,
+  Instagram,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Quote,
+  Sparkles,
+  Star,
+  Utensils,
+} from 'lucide-react';
 
-const categories = [
-  ['Hummous Dishes', 'أطباق الحمص'], ['Beverages', 'مشروبات'], ['Appetizers', 'المقبلات'], ['Lebanese Salads', 'سلطات لبنانية'],
-  ['Foul Dishes', 'أطباق الفول'], ['Fatteh', 'فتات'], ['BBQ', 'مشاوي'], ['Falafel', 'فلافل'],
-  ['Jerusalem Bagel', 'كعكة قدسية'], ['Manakeesh', 'مناقيش'], ['Eggs Plates', 'أطباق البيض'], ['Liver', 'كبدة'],
-  ['El Khetyar Fried', 'قلايات الاختيار'], ['Shawarma', 'الشاورما'], ['Musakhan', 'مسخن'], ['Grill', 'جريل'], ['Chicken', 'دجاج'], ['Sandwiches', 'السندويشات']
+const whatsappNumber = '971501234567';
+const whatsappLink = `https://wa.me/${whatsappNumber}`;
+
+const signatureCategories = [
+  {
+    en: 'Breakfast Classics',
+    ar: 'فطور شامي',
+    image: '/images/menu/page-4.jpg',
+    description: 'Foul, hummous, eggs, fresh bread, olive oil, and plates made for sharing.',
+  },
+  {
+    en: 'Shawarma & Sandwiches',
+    ar: 'شاورما وسندويشات',
+    image: '/images/menu/page-7.jpg',
+    description: 'Warm wraps, toasted bread, pickles, sauces, and the comfort of street-food flavor.',
+  },
+  {
+    en: 'Grills & BBQ',
+    ar: 'مشاوي',
+    image: '/images/menu/page-3.jpg',
+    description: 'Charcoal-inspired plates with Levantine seasoning and generous portions.',
+  },
+  {
+    en: 'Manakeesh & Baked Goods',
+    ar: 'مناقيش ومعجنات',
+    image: '/images/menu/page-4.jpg',
+    description: 'Freshly baked, warm, simple, and deeply nostalgic.',
+  },
+];
+
+const menuHighlights = [
+  ['Hummous Dishes', 'أطباق الحمص', 'Creamy bowls finished with olive oil.'],
+  ['Falafel', 'فلافل', 'Crisp, golden, and made for breakfast tables.'],
+  ['Fatteh', 'فتات', 'Layered comfort with yoghurt, bread, and warm toppings.'],
+  ['BBQ', 'مشاوي', 'Grilled plates with smoky Levantine flavor.'],
+  ['Manakeesh', 'مناقيش', 'Oven-baked classics with zaatar, cheese, and more.'],
+  ['Shawarma', 'الشاورما', 'Juicy wraps with pickles, garlic, and toasted bread.'],
 ];
 
 const branches = [
-  { name: 'Al Najda Branch', phone: '02 6333200' },
-  { name: 'Hamdan Branch', phone: '02 4499916' },
-  { name: 'Baniyas Branch', phone: '02 3686203' },
+  { name: 'Al Najda Branch', phone: '02 6333200', area: 'Central Abu Dhabi', hours: 'Open daily' },
+  { name: 'Hamdan Branch', phone: '02 4499916', area: 'Hamdan Street', hours: 'Open daily' },
+  { name: 'Baniyas Branch', phone: '02 3686203', area: 'Baniyas', hours: 'Open daily' },
+];
+
+const reviews = [
+  'Warm food, quick service, and the kind of breakfast table you want to share.',
+  'A familiar Levantine taste with generous portions and fresh bread.',
+  'Perfect for shawarma, foul, hummous, and family-style comfort food.',
 ];
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-cream text-ink">
+    <main className="min-h-screen overflow-hidden bg-cream text-ink">
       <Header />
       <Hero />
-      <About />
-      <FeaturedCategories />
+      <Story />
+      <SignatureCategories />
+      <DigitalMenuPreview />
       <MenuBook />
       <Branches />
+      <SocialProof />
       <Contact />
       <Footer />
+      <a
+        href={whatsappLink}
+        target="_blank"
+        rel="noreferrer"
+        className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-terracotta px-5 py-4 text-sm font-bold text-cream shadow-lift transition hover:-translate-y-1 hover:bg-deep md:hidden"
+      >
+        <MessageCircle size={18} /> Order
+      </a>
     </main>
   );
 }
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-olive/15 bg-cream/95 backdrop-blur">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-cream/10 bg-deep/80 text-cream shadow-soft backdrop-blur-xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
         <a href="#home" className="flex items-center gap-3">
-          <Image src="/images/logo.png" alt="Beit El Khetyar logo" width={136} height={86} className="h-14 w-auto object-contain" priority />
+          <span className="rounded-2xl bg-cream p-2 shadow-soft">
+            <Image src="/images/logo.png" alt="Beit El Khetyar logo" width={118} height={76} className="h-12 w-auto object-contain" priority />
+          </span>
+          <span className="hidden leading-tight sm:block">
+            <span className="block font-display text-xl font-semibold">Beit El Khetyar</span>
+            <span className="block text-xs uppercase tracking-[0.28em] text-cream/60">Restaurant & Cafeteria</span>
+          </span>
         </a>
-        <div className="hidden items-center gap-8 text-sm font-semibold text-deep md:flex">
-          <a href="#home" className="hover:text-olive">Home</a>
-          <a href="#about" className="hover:text-olive">About</a>
-          <a href="#menu" className="hover:text-olive">Menu</a>
-          <a href="#branches" className="hover:text-olive">Branches</a>
-          <a href="#contact" className="hover:text-olive">Contact</a>
+
+        <div className="hidden items-center gap-7 text-sm font-semibold text-cream/80 lg:flex">
+          <a href="#story" className="transition hover:text-gold">Story</a>
+          <a href="#signature" className="transition hover:text-gold">Specialties</a>
+          <a href="#menu" className="transition hover:text-gold">Menu</a>
+          <a href="#branches" className="transition hover:text-gold">Branches</a>
+          <a href="#contact" className="transition hover:text-gold">Contact</a>
         </div>
-        <div className="flex gap-2">
-          <a href="#menu" className="rounded-full border border-olive/30 px-4 py-2 text-sm font-semibold text-olive hover:bg-olive hover:text-cream">View Menu</a>
-          <a href="#branches" className="hidden rounded-full bg-olive px-4 py-2 text-sm font-semibold text-cream hover:bg-deep sm:inline-flex">WhatsApp</a>
+
+        <div className="flex items-center gap-2">
+          <a href="#menu" className="hidden rounded-full border border-cream/25 px-4 py-2 text-sm font-semibold text-cream transition hover:border-gold hover:text-gold sm:inline-flex">View Menu</a>
+          <a href={whatsappLink} target="_blank" rel="noreferrer" className="rounded-full bg-terracotta px-4 py-2 text-sm font-bold text-cream shadow-soft transition hover:-translate-y-0.5 hover:bg-gold hover:text-deep">WhatsApp</a>
         </div>
       </nav>
     </header>
@@ -55,29 +124,46 @@ function Header() {
 
 function Hero() {
   return (
-    <section id="home" className="relative overflow-hidden px-4 pb-20 pt-16 md:pt-24">
-      <div className="tile-strip absolute bottom-0 left-0 h-28 w-full opacity-85" />
-      <div className="absolute -right-32 top-20 h-96 w-96 rounded-full bg-olive/10 blur-3xl" />
-      <div className="mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-[1.05fr_.95fr]">
-        <div className="relative z-10">
-          <p className="arabic mb-4 text-4xl text-olive md:text-5xl">سفرة دايمة...!</p>
-          <h1 className="menu-heading text-6xl font-semibold leading-[.95] text-deep md:text-8xl">Enjoy Your Meal...</h1>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-ink/75">
-            Beit El Khetyar Restaurant & Cafeteria brings Levantine comfort food, warm hospitality, fresh bread, olive oil, grills, shawarma, foul, hummous, and breakfast classics to Abu Dhabi.
+    <section id="home" className="relative min-h-screen overflow-hidden bg-deep pt-28 text-cream">
+      <div className="absolute inset-0">
+        <img src="/images/menu/page-3.jpg" alt="Levantine grill and appetizers" className="h-full w-full scale-105 object-cover opacity-35" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_65%_20%,rgba(180,129,68,.34),transparent_32%),linear-gradient(90deg,rgba(35,42,30,.98),rgba(35,42,30,.82)_42%,rgba(35,42,30,.38))]" />
+      </div>
+      <div className="absolute -left-28 top-28 h-72 w-72 rounded-full bg-gold/20 blur-3xl" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-cream to-transparent" />
+
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 pb-20 pt-16 lg:grid-cols-[1fr_.86fr] lg:pt-24">
+        <div className="max-w-3xl">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cream/20 bg-cream/10 px-4 py-2 text-sm font-semibold text-gold backdrop-blur">
+            <Sparkles size={16} /> Authentic Levantine comfort food in Abu Dhabi
+          </div>
+          <p className="arabic mb-3 text-4xl text-gold md:text-6xl">سفرة دايمة...!</p>
+          <h1 className="font-display text-6xl font-semibold leading-[0.9] tracking-tight md:text-8xl lg:text-9xl">
+            Warm bread. Olive oil. Familiar flavor.
+          </h1>
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-cream/78 md:text-xl">
+            A modern home for Levantine breakfast classics, shawarma, grills, hummous, foul, and warm hospitality served across Abu Dhabi.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#menu" className="rounded-full bg-olive px-7 py-4 font-semibold text-cream shadow-soft hover:bg-deep">View Interactive Menu</a>
-            <a href="#branches" className="rounded-full border border-olive/35 px-7 py-4 font-semibold text-olive hover:bg-olive hover:text-cream">Order on WhatsApp</a>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <a href="#digital-menu" className="inline-flex items-center gap-2 rounded-full bg-gold px-7 py-4 font-bold text-deep shadow-lift transition hover:-translate-y-1 hover:bg-cream">
+              Explore Menu <ArrowRight size={18} />
+            </a>
+            <a href={whatsappLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-cream/30 bg-cream/10 px-7 py-4 font-bold text-cream backdrop-blur transition hover:-translate-y-1 hover:border-gold hover:text-gold">
+              <MessageCircle size={18} /> Order on WhatsApp
+            </a>
           </div>
         </div>
-        <div className="relative z-10 rounded-[2rem] border border-olive/20 bg-paper p-4 shadow-book">
-          <div className="grid grid-cols-2 gap-3">
-            <img src="/images/menu/page-4.jpg" alt="Food menu preview" className="h-72 rounded-2xl object-cover object-top" />
-            <img src="/images/menu/page-5.jpg" alt="Food menu preview" className="mt-12 h-72 rounded-2xl object-cover object-top" />
+
+        <div className="relative hidden lg:block">
+          <div className="absolute -left-8 -top-8 h-40 w-40 rounded-full border border-gold/30" />
+          <div className="relative rotate-2 rounded-[2.5rem] border border-cream/15 bg-cream/10 p-4 shadow-lift backdrop-blur">
+            <img src="/images/menu/page-5.jpg" alt="Menu dishes preview" className="h-[520px] w-full rounded-[2rem] object-cover object-top" />
           </div>
-          <div className="absolute -bottom-6 left-8 rounded-2xl bg-cream px-6 py-4 shadow-soft">
-            <p className="text-sm font-semibold text-olive">Restaurant & Cafeteria</p>
-            <p className="arabic text-2xl text-deep">بيت الاختيار</p>
+          <div className="absolute -bottom-8 -left-8 max-w-xs rounded-[2rem] border border-gold/25 bg-cream p-6 text-deep shadow-lift">
+            <div className="mb-3 flex text-gold">
+              {Array.from({ length: 5 }).map((_, i) => <Star key={i} size={18} fill="currentColor" />)}
+            </div>
+            <p className="font-semibold">Fresh bread, signature olive oil, and generous plates made for sharing.</p>
           </div>
         </div>
       </div>
@@ -85,49 +171,58 @@ function Hero() {
   );
 }
 
-function About() {
+function Story() {
   return (
-    <section id="about" className="paper-texture px-4 py-24">
-      <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-2">
+    <section id="story" className="paper-texture relative px-4 py-24 md:py-32">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[.85fr_1fr]">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <img src="/images/menu/page-4.jpg" alt="Breakfast plates" className="h-72 rounded-[2rem] object-cover object-top shadow-soft sm:mt-16" />
+          <img src="/images/menu/page-6.jpg" alt="Levantine menu" className="h-96 rounded-[2rem] object-cover object-top shadow-lift" />
+        </div>
         <div>
-          <p className="arabic mb-2 text-3xl text-olive">قصتنا</p>
-          <h2 className="menu-heading text-5xl font-semibold text-deep">Food is an experience.</h2>
-          <p className="mt-6 leading-8 text-ink/75">
-            Bait El Khetyar Restaurant & Cafeteria truly is said that food is an experience. What better place to encounter it than Bait El Khetyar Restaurant and Cafeteria? Here, authentic oriental food is blended with the taste of the past and served with modern comfort.
+          <p className="arabic text-4xl text-olive">قصتنا</p>
+          <h2 className="mt-3 font-display text-5xl font-semibold leading-tight text-deep md:text-7xl">The taste of a table that feels like home.</h2>
+          <p className="mt-7 max-w-2xl text-lg leading-9 text-ink/72">
+            Beit El Khetyar is built around the feeling of a generous Levantine table: warm bread arriving first, olive oil on the side, familiar breakfast plates, grills, shawarma, and dishes made to bring people together.
           </p>
-          <p className="mt-4 font-semibold italic text-olive">All foods are served with Bait Al Khetyar special bread and original olive oil.</p>
-        </div>
-        <div className="arabic rounded-[2rem] border border-olive/20 bg-cream p-8 text-right shadow-soft">
-          <p className="text-2xl leading-10 text-deep">
-            نقدم تجربة طعام دافئة مستوحاة من المائدة الشامية، حيث الخبز الطازج، زيت الزيتون الأصيل، والمذاق البيتي الذي يجمع العائلة والأصدقاء.
+          <p className="mt-5 max-w-2xl text-lg leading-9 text-ink/72">
+            The redesign should protect that authenticity while making the website feel more cinematic, appetizing, and premium from the first scroll.
           </p>
-          <p className="mt-8 text-4xl text-olive">سفرة دايمة...!</p>
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {['Fresh bread', 'Original olive oil', 'Family-style plates'].map((item) => (
+              <div key={item} className="rounded-2xl border border-olive/15 bg-cream/80 p-4 font-bold text-deep shadow-sm">{item}</div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function FeaturedCategories() {
+function SignatureCategories() {
   return (
-    <section className="px-4 py-24">
+    <section id="signature" className="relative bg-cream px-4 py-24 md:py-32">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <div className="mb-12 flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
-            <p className="arabic text-3xl text-olive">أصنافنا</p>
-            <h2 className="menu-heading text-5xl font-semibold text-deep">Featured Categories</h2>
+            <p className="arabic text-4xl text-olive">أصنافنا</p>
+            <h2 className="mt-2 font-display text-5xl font-semibold text-deep md:text-7xl">Signature categories</h2>
           </div>
-          <p className="max-w-xl text-ink/65">Category cards follow the menu colors: cream paper, olive rules, dark headings, Arabic/English pairing, and simple spacing.</p>
+          <p className="max-w-xl text-lg leading-8 text-ink/65">
+            Larger visual cards replace repetitive tiny menu screenshots and make each category feel desirable and easy to explore.
+          </p>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.map(([en, ar], i) => (
-            <a href="#menu" key={en} className="group rounded-3xl border border-olive/20 bg-paper p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
-              <div className="mb-4 h-28 overflow-hidden rounded-2xl bg-olive/10">
-                <img src={`/images/menu/page-${(i % 6) + 3}.jpg`} alt="Menu food" className="h-full w-full object-cover object-top opacity-85 transition group-hover:scale-105" />
-              </div>
-              <div className="flex items-end justify-between gap-4 border-t border-olive/25 pt-4">
-                <h3 className="text-xl font-bold text-deep">{en}</h3>
-                <p className="arabic text-2xl text-olive">{ar}</p>
+
+        <div className="grid gap-5 md:grid-cols-2">
+          {signatureCategories.map((category, index) => (
+            <a href="#digital-menu" key={category.en} className="group relative min-h-[360px] overflow-hidden rounded-[2.25rem] bg-deep shadow-soft transition hover:-translate-y-1 hover:shadow-lift">
+              <img src={category.image} alt={category.en} className="absolute inset-0 h-full w-full object-cover object-top opacity-55 transition duration-700 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-t from-deep via-deep/55 to-transparent" />
+              <div className="relative flex h-full min-h-[360px] flex-col justify-end p-7 text-cream md:p-9">
+                <span className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full bg-gold text-lg font-black text-deep">{index + 1}</span>
+                <p className="arabic text-4xl text-gold">{category.ar}</p>
+                <h3 className="mt-2 font-display text-4xl font-semibold">{category.en}</h3>
+                <p className="mt-3 max-w-lg leading-7 text-cream/75">{category.description}</p>
               </div>
             </a>
           ))}
@@ -137,23 +232,30 @@ function FeaturedCategories() {
   );
 }
 
-function Branches() {
+function DigitalMenuPreview() {
   return (
-    <section id="branches" className="paper-texture px-4 py-24">
+    <section id="digital-menu" className="bg-deep px-4 py-24 text-cream md:py-32">
       <div className="mx-auto max-w-7xl">
-        <p className="arabic text-center text-3xl text-olive">فروعنا</p>
-        <h2 className="menu-heading text-center text-5xl font-semibold text-deep">Abu Dhabi Branches</h2>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {branches.map((branch) => (
-            <div key={branch.name} className="rounded-[2rem] border border-olive/20 bg-cream p-7 shadow-soft">
-              <MapPin className="mb-5 text-olive" />
-              <h3 className="text-2xl font-bold text-deep">{branch.name}</h3>
-              <p className="mt-3 flex items-center gap-2 text-lg font-semibold text-olive"><Phone size={18} /> {branch.phone}</p>
-              <div className="mt-6 flex gap-3">
-                <a href={`tel:${branch.phone.replaceAll(' ', '')}`} className="rounded-full border border-olive/30 px-5 py-3 font-semibold text-olive hover:bg-olive hover:text-cream">Call</a>
-                <a href="#contact" className="inline-flex items-center gap-2 rounded-full bg-olive px-5 py-3 font-semibold text-cream hover:bg-deep"><MessageCircle size={18} /> WhatsApp</a>
+        <div className="mb-12 text-center">
+          <p className="arabic text-4xl text-gold">قائمة رقمية</p>
+          <h2 className="mt-2 font-display text-5xl font-semibold md:text-7xl">A faster way to choose</h2>
+          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-cream/70">
+            Keep the flipbook, but lead users with a mobile-friendly digital menu. This section is designed for quick browsing and WhatsApp ordering.
+          </p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {menuHighlights.map(([en, ar, desc]) => (
+            <div key={en} className="group rounded-[2rem] border border-cream/10 bg-cream/[0.06] p-6 backdrop-blur transition hover:-translate-y-1 hover:border-gold/50 hover:bg-cream/[0.09]">
+              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gold text-deep transition group-hover:rotate-3">
+                <Utensils size={24} />
               </div>
-              <div className="mt-6 flex h-36 items-center justify-center rounded-2xl border border-dashed border-olive/30 text-sm text-ink/50">Google Maps placeholder</div>
+              <p className="arabic text-3xl text-gold">{ar}</p>
+              <h3 className="mt-2 text-2xl font-bold">{en}</h3>
+              <p className="mt-3 leading-7 text-cream/65">{desc}</p>
+              <a href={whatsappLink} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 font-bold text-gold">
+                Order this category <ArrowRight size={16} />
+              </a>
             </div>
           ))}
         </div>
@@ -162,28 +264,92 @@ function Branches() {
   );
 }
 
-function Contact() {
+function Branches() {
   return (
-    <section id="contact" className="px-4 py-24">
-      <div className="mx-auto grid max-w-6xl gap-8 rounded-[2rem] border border-olive/20 bg-paper p-6 shadow-book md:grid-cols-2 md:p-10">
-        <div>
-          <p className="arabic text-3xl text-olive">تواصل معنا</p>
-          <h2 className="menu-heading text-5xl font-semibold text-deep">Order, visit, or reserve.</h2>
-          <p className="mt-5 leading-8 text-ink/70">Use this section for reservations, WhatsApp ordering, delivery information, and social links. Replace placeholders with the restaurant’s live links.</p>
-          <div className="mt-8 flex gap-3">
-            <a href="#" className="rounded-full border border-olive/30 p-3 text-olive hover:bg-olive hover:text-cream"><Instagram /></a>
-            <a href="#" className="rounded-full border border-olive/30 p-3 text-olive hover:bg-olive hover:text-cream"><Facebook /></a>
+    <section id="branches" className="paper-texture px-4 py-24 md:py-32">
+      <div className="mx-auto max-w-7xl">
+        <div className="text-center">
+          <p className="arabic text-4xl text-olive">فروعنا</p>
+          <h2 className="mt-2 font-display text-5xl font-semibold text-deep md:text-7xl">Abu Dhabi branches</h2>
+          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-ink/65">Each branch now has stronger calls-to-action and space for real maps, photos, opening hours, and parking details.</p>
+        </div>
+
+        <div className="mt-12 grid gap-5 lg:grid-cols-3">
+          {branches.map((branch) => (
+            <article key={branch.name} className="rounded-[2rem] border border-olive/15 bg-cream p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-lift">
+              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-olive text-cream"><MapPin /></div>
+              <p className="text-sm font-bold uppercase tracking-[0.22em] text-olive/70">{branch.area}</p>
+              <h3 className="mt-2 text-2xl font-black text-deep">{branch.name}</h3>
+              <div className="mt-5 grid gap-3 text-ink/70">
+                <p className="flex items-center gap-2"><Phone size={18} className="text-olive" /> {branch.phone}</p>
+                <p className="flex items-center gap-2"><Clock size={18} className="text-olive" /> {branch.hours}</p>
+              </div>
+              <div className="mt-6 h-40 rounded-3xl border border-dashed border-olive/30 bg-paper p-5 text-sm text-ink/55">
+                Replace with real embedded Google Map and storefront photo.
+              </div>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a href={`tel:${branch.phone.replaceAll(' ', '')}`} className="rounded-full border border-olive/25 px-5 py-3 font-bold text-olive transition hover:bg-olive hover:text-cream">Call</a>
+                <a href={whatsappLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-terracotta px-5 py-3 font-bold text-cream transition hover:bg-deep"><MessageCircle size={18} /> WhatsApp</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SocialProof() {
+  return (
+    <section className="bg-cream px-4 py-24">
+      <div className="mx-auto max-w-7xl rounded-[2.5rem] bg-deep p-7 text-cream shadow-lift md:p-12">
+        <div className="grid gap-10 lg:grid-cols-[.7fr_1fr] lg:items-center">
+          <div>
+            <div className="mb-4 flex text-gold">{Array.from({ length: 5 }).map((_, i) => <Star key={i} size={22} fill="currentColor" />)}</div>
+            <h2 className="font-display text-5xl font-semibold">Loved by Abu Dhabi locals.</h2>
+            <p className="mt-5 leading-8 text-cream/70">Add real Google reviews, Instagram posts, and delivery platform badges here to build trust before users order.</p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {reviews.map((review) => (
+              <div key={review} className="rounded-3xl border border-cream/10 bg-cream/[0.07] p-6">
+                <Quote className="mb-4 text-gold" />
+                <p className="leading-7 text-cream/78">{review}</p>
+              </div>
+            ))}
           </div>
         </div>
-        <form className="grid gap-4">
-          <input className="rounded-2xl border border-olive/20 bg-cream px-5 py-4 outline-none focus:border-olive" placeholder="Name" />
-          <input className="rounded-2xl border border-olive/20 bg-cream px-5 py-4 outline-none focus:border-olive" placeholder="Phone" />
-          <div className="grid gap-4 sm:grid-cols-2">
-            <input className="rounded-2xl border border-olive/20 bg-cream px-5 py-4 outline-none focus:border-olive" placeholder="Guests" />
-            <input className="rounded-2xl border border-olive/20 bg-cream px-5 py-4 outline-none focus:border-olive" placeholder="Date / Time" />
+      </div>
+    </section>
+  );
+}
+
+function Contact() {
+  return (
+    <section id="contact" className="relative px-4 py-24 md:py-32">
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-paper to-transparent" />
+      <div className="relative mx-auto grid max-w-7xl overflow-hidden rounded-[2.5rem] border border-olive/15 bg-paper shadow-lift lg:grid-cols-[.85fr_1fr]">
+        <div className="bg-deep p-8 text-cream md:p-12">
+          <p className="arabic text-4xl text-gold">تواصل معنا</p>
+          <h2 className="mt-2 font-display text-5xl font-semibold leading-tight md:text-6xl">Order, visit, or reserve.</h2>
+          <p className="mt-6 leading-8 text-cream/72">Use this space for real WhatsApp ordering, delivery links, reservations, and social channels. Remove all placeholder text before publishing.</p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href={whatsappLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 font-bold text-deep"><MessageCircle size={18} /> WhatsApp</a>
+            <a href="#branches" className="inline-flex items-center gap-2 rounded-full border border-cream/20 px-6 py-3 font-bold text-cream"><MapPin size={18} /> Find branch</a>
           </div>
-          <textarea className="min-h-32 rounded-2xl border border-olive/20 bg-cream px-5 py-4 outline-none focus:border-olive" placeholder="Special requests" />
-          <button type="button" className="rounded-full bg-olive px-7 py-4 font-semibold text-cream hover:bg-deep">Send Request</button>
+          <div className="mt-8 flex gap-3">
+            <a href="#" className="rounded-full border border-cream/20 p-3 text-cream/80 transition hover:border-gold hover:text-gold"><Instagram /></a>
+            <a href="#" className="rounded-full border border-cream/20 p-3 text-cream/80 transition hover:border-gold hover:text-gold"><Facebook /></a>
+          </div>
+        </div>
+        <form className="grid gap-4 p-6 md:p-10">
+          <input className="rounded-2xl border border-olive/15 bg-cream px-5 py-4 outline-none transition focus:border-olive focus:ring-4 focus:ring-olive/10" placeholder="Name" />
+          <input className="rounded-2xl border border-olive/15 bg-cream px-5 py-4 outline-none transition focus:border-olive focus:ring-4 focus:ring-olive/10" placeholder="Phone" />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <input className="rounded-2xl border border-olive/15 bg-cream px-5 py-4 outline-none transition focus:border-olive focus:ring-4 focus:ring-olive/10" placeholder="Guests" />
+            <input className="rounded-2xl border border-olive/15 bg-cream px-5 py-4 outline-none transition focus:border-olive focus:ring-4 focus:ring-olive/10" placeholder="Date / Time" />
+          </div>
+          <textarea className="min-h-36 rounded-2xl border border-olive/15 bg-cream px-5 py-4 outline-none transition focus:border-olive focus:ring-4 focus:ring-olive/10" placeholder="Special requests" />
+          <button type="button" className="rounded-full bg-olive px-7 py-4 font-bold text-cream shadow-soft transition hover:-translate-y-1 hover:bg-deep">Send Request</button>
         </form>
       </div>
     </section>
@@ -193,19 +359,19 @@ function Contact() {
 function Footer() {
   return (
     <footer className="bg-deep text-cream">
-      <div className="tile-strip h-12 opacity-70" />
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 md:grid-cols-[1.2fr_1fr_1fr]">
+      <div className="tile-strip h-12 opacity-80" />
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
-          <img src="/images/logo.png" alt="logo" className="mb-4 h-20 rounded-xl bg-cream object-contain p-2" />
-          <p className="max-w-md text-cream/75">Beit El Khetyar Restaurant & Cafeteria, Abu Dhabi. Authentic Levantine comfort food, served with warmth.</p>
+          <img src="/images/logo.png" alt="Beit El Khetyar logo" className="mb-5 h-20 rounded-2xl bg-cream object-contain p-2" />
+          <p className="max-w-md leading-7 text-cream/70">Beit El Khetyar Restaurant & Cafeteria, Abu Dhabi. Authentic Levantine comfort food served with warmth.</p>
         </div>
         <div>
-          <h4 className="mb-3 font-bold">Navigation</h4>
-          <div className="grid gap-2 text-cream/75"><a href="#about">About</a><a href="#menu">Menu</a><a href="#branches">Branches</a><a href="#contact">Contact</a></div>
+          <h4 className="mb-4 font-bold text-gold">Navigation</h4>
+          <div className="grid gap-2 text-cream/70"><a href="#story">Story</a><a href="#signature">Specialties</a><a href="#menu">Menu</a><a href="#branches">Branches</a></div>
         </div>
         <div>
-          <h4 className="mb-3 font-bold">Branches</h4>
-          {branches.map(b => <p key={b.name} className="text-cream/75">{b.name}: {b.phone}</p>)}
+          <h4 className="mb-4 font-bold text-gold">Branches</h4>
+          {branches.map((b) => <p key={b.name} className="text-cream/70">{b.name}: {b.phone}</p>)}
         </div>
       </div>
     </footer>
