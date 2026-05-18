@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Download, Expand, Minus, Plus } from 'lucide-react';
 
 const pages = Array.from({ length: 8 }, (_, i) => `/images/menu/page-${i + 1}.jpg`);
@@ -8,15 +8,62 @@ const pages = Array.from({ length: 8 }, (_, i) => `/images/menu/page-${i + 1}.jp
 export default function MenuBook() {
   const [page, setPage] = useState(0);
   const [zoom, setZoom] = useState(1);
+  const [flipping, setFlipping] = useState(false);
+  const [direction, setDirection] = useState('next');
+  const [flipImage, setFlipImage] = useState(pages[0]);
+  const [touchStart, setTouchStart] = useState(null);
 
-  const pageLabel = useMemo(() => `Page ${page + 1} of ${pages.length}`, [page]);
+  const goToPage = (nextPage, nextDirection) => {
+    if (nextPage < 0 || nextPage >= pages.length || flipping) return;
 
-  const prevPage = () => {
-    setPage((current) => Math.max(0, current - 1));
+    setDirection(nextDirection);
+    setFlipImage(pages[page]);
+    setFlipping(true);
+
+    setTimeout(() => {
+      setPage(nextPage);
+    }, 180);
+
+    setTimeout(() => {
+      setFlipping(false);
+    }, 720);
   };
 
-  const nextPage = () => {
-    setPage((current) => Math.min(pages.length - 1, current + 1));
+  const prevPage = () => goToPage(page - 1, 'prev');
+  const nextPage = () => goToPage(page + 1, 'next');
+
+  const handleMenuClick = (e) => {
+    if (flipping) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickedRightSide = e.clientX > rect.left + rect.width / 2;
+
+    if (clickedRightSide) {
+      nextPage();
+    } else {
+      prevPage();
+    }
+  };
+
+  const handleTouchStart = (e) => {
+    setTouchStart(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStart === null || flipping) return;
+
+    const touchEnd = e.changedTouches[0].clientX;
+    const distance = touchStart - touchEnd;
+
+    if (Math.abs(distance) > 50) {
+      if (distance > 0) {
+        nextPage();
+      } else {
+        prevPage();
+      }
+    }
+
+    setTouchStart(null);
   };
 
   const enterFullscreen = () => {
@@ -35,7 +82,7 @@ export default function MenuBook() {
             Interactive Menu
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-ink/70">
-            Browse the original Beit El Khetyar menu one full page at a time for better readability on desktop and mobile.
+            Browse the original Beit El Khetyar menu one complete page at a time.
           </p>
         </div>
 
@@ -45,9 +92,11 @@ export default function MenuBook() {
         >
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="font-semibold text-deep">{pageLabel}</p>
+              <p className="font-semibold text-deep">
+                Page {page + 1} of {pages.length}
+              </p>
               <p className="text-sm text-ink/60">
-                Single-page viewing prevents the menu from being visually split at the fold.
+                Click the right side to go next, left side to go back. Swipe on mobile.
               </p>
             </div>
 
@@ -56,16 +105,14 @@ export default function MenuBook() {
                 type="button"
                 onClick={() => setZoom((z) => Math.max(0.75, z - 0.1))}
                 className="rounded-full border border-olive/25 px-3 py-2 transition hover:bg-olive hover:text-cream"
-                aria-label="Zoom out"
               >
                 <Minus size={16} />
               </button>
 
               <button
                 type="button"
-                onClick={() => setZoom((z) => Math.min(1.45, z + 0.1))}
+                onClick={() => setZoom((z) => Math.min(1.3, z + 0.1))}
                 className="rounded-full border border-olive/25 px-3 py-2 transition hover:bg-olive hover:text-cream"
-                aria-label="Zoom in"
               >
                 <Plus size={16} />
               </button>
@@ -74,7 +121,6 @@ export default function MenuBook() {
                 type="button"
                 onClick={enterFullscreen}
                 className="rounded-full border border-olive/25 px-3 py-2 transition hover:bg-olive hover:text-cream"
-                aria-label="Open fullscreen"
               >
                 <Expand size={16} />
               </button>
@@ -98,11 +144,35 @@ export default function MenuBook() {
                 transition: 'transform .25s ease',
               }}
             >
-              <img
-                src={pages[page]}
-                alt={`Beit El Khetyar menu page ${page + 1}`}
-                className="max-h-[82vh] w-auto max-w-full rounded-xl object-contain shadow-lift"
-              />
+              <div
+                className="menu-flip-stage relative w-full max-w-[1100px] cursor-grab overflow-hidden rounded-xl bg-paper shadow-lift active:cursor-grabbing"
+                onClick={handleMenuClick}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
+                <img
+                  src={pages[page]}
+                  alt={`Beit El Khetyar menu page ${page + 1}`}
+                  className="block w-full object-contain"
+                />
+
+                {flipping && (
+                  <div
+                    className={`menu-flip-sheet ${
+                      direction === 'next'
+                        ? 'menu-flip-sheet-next'
+                        : 'menu-flip-sheet-prev'
+                    }`}
+                  >
+                    <img
+                      src={flipImage}
+                      alt="Flipping menu page"
+                      className="h-full w-full object-cover"
+                    />
+                    <span className="menu-flip-shadow" />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
@@ -110,7 +180,7 @@ export default function MenuBook() {
             <button
               type="button"
               onClick={prevPage}
-              disabled={page === 0}
+              disabled={page === 0 || flipping}
               className="rounded-full border border-olive/30 px-6 py-3 font-semibold text-olive transition hover:bg-olive hover:text-cream disabled:cursor-not-allowed disabled:opacity-40"
             >
               Previous
@@ -119,7 +189,7 @@ export default function MenuBook() {
             <button
               type="button"
               onClick={nextPage}
-              disabled={page === pages.length - 1}
+              disabled={page === pages.length - 1 || flipping}
               className="rounded-full bg-olive px-6 py-3 font-semibold text-cream transition hover:bg-deep disabled:cursor-not-allowed disabled:opacity-40"
             >
               Next Page

@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"components\\\\MenuBook.jsx -> react-pageflip\":{\"id\":\"components\\\\MenuBook.jsx -> react-pageflip\",\"files\":[\"static/chunks/_app-pages-browser_node_modules_react-pageflip_build_index_es_js.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{}"
