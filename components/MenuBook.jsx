@@ -1,9 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Download, Expand, Minus, Plus } from 'lucide-react';
 
-const pages = Array.from({ length: 8 }, (_, i) => `/images/menu/page-${i + 1}.jpg`);
+const pages = Array.from(
+  { length: 8 },
+  (_, i) => `/images/menu/page-${i + 1}.jpg`
+);
 
 export default function MenuBook() {
   const [page, setPage] = useState(0);
@@ -13,8 +16,20 @@ export default function MenuBook() {
   const [flipImage, setFlipImage] = useState(pages[0]);
   const [touchStart, setTouchStart] = useState(null);
 
+  const audioRef = useRef(null);
+
+  const playFlipSound = () => {
+    if (!audioRef.current) return;
+
+    audioRef.current.currentTime = 0;
+    audioRef.current.volume = 0.2;
+    audioRef.current.play().catch(() => {});
+  };
+
   const goToPage = (nextPage, nextDirection) => {
     if (nextPage < 0 || nextPage >= pages.length || flipping) return;
+
+    playFlipSound();
 
     setDirection(nextDirection);
     setFlipImage(pages[page]);
@@ -72,16 +87,22 @@ export default function MenuBook() {
   };
 
   return (
-    <section id="menu" className="relative overflow-hidden bg-cream py-24">
+    <section id="menu" className="relative overflow-hidden bg-cream py-14 md:py-24">
+      <audio ref={audioRef} src="/sounds/page-flip.mp3" preload="auto" />
+
       <div className="tile-strip absolute inset-x-0 top-0 h-10 opacity-80" />
 
       <div className="mx-auto max-w-7xl px-4">
-        <div className="mb-10 text-center">
-          <p className="arabic mb-2 text-3xl text-olive">القائمة</p>
-          <h2 className="menu-heading text-5xl font-semibold text-deep md:text-7xl">
+        <div className="mb-8 text-center md:mb-10">
+          <p className="arabic mb-2 text-3xl text-olive">
+            القائمة
+          </p>
+
+          <h2 className="menu-heading text-[2.8rem] font-semibold leading-[0.95] text-deep md:text-7xl">
             Interactive Menu
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-ink/70">
+
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-ink/70 md:text-base">
             Browse the original Beit El Khetyar menu one complete page at a time.
           </p>
         </div>
@@ -95,15 +116,16 @@ export default function MenuBook() {
               <p className="font-semibold text-deep">
                 Page {page + 1} of {pages.length}
               </p>
+
               <p className="text-sm text-ink/60">
-                Click the right side to go next, left side to go back. Swipe on mobile.
+                Tap right side for next page.
               </p>
             </div>
 
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
-                onClick={() => setZoom((z) => Math.max(0.75, z - 0.1))}
+                onClick={() => setZoom((z) => Math.max(0.9, z - 0.1))}
                 className="rounded-full border border-olive/25 px-3 py-2 transition hover:bg-olive hover:text-cream"
               >
                 <Minus size={16} />
@@ -111,7 +133,7 @@ export default function MenuBook() {
 
               <button
                 type="button"
-                onClick={() => setZoom((z) => Math.min(1.3, z + 0.1))}
+                onClick={() => setZoom((z) => Math.min(1.4, z + 0.1))}
                 className="rounded-full border border-olive/25 px-3 py-2 transition hover:bg-olive hover:text-cream"
               >
                 <Plus size={16} />
@@ -130,12 +152,13 @@ export default function MenuBook() {
                 download
                 className="inline-flex items-center gap-2 rounded-full bg-olive px-4 py-2 text-sm font-semibold text-cream transition hover:bg-deep"
               >
-                <Download size={16} /> PDF
+                <Download size={16} />
+                PDF
               </a>
             </div>
           </div>
 
-          <div className="overflow-auto rounded-[1.5rem] bg-paper p-3 md:p-6">
+          <div className="overflow-auto rounded-[1.5rem] bg-paper p-2 md:p-6">
             <div
               className="mx-auto flex w-full justify-center"
               style={{
@@ -153,7 +176,7 @@ export default function MenuBook() {
                 <img
                   src={pages[page]}
                   alt={`Beit El Khetyar menu page ${page + 1}`}
-                  className="block w-full object-contain"
+                  className="block h-[430px] w-full object-contain md:h-[620px] lg:h-[720px]"
                 />
 
                 {flipping && (
@@ -169,6 +192,7 @@ export default function MenuBook() {
                       alt="Flipping menu page"
                       className="h-full w-full object-cover"
                     />
+
                     <span className="menu-flip-shadow" />
                   </div>
                 )}
