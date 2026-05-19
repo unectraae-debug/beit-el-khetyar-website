@@ -86,7 +86,7 @@ export default function Home() {
         href={whatsappLink}
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-terracotta px-5 py-4 text-sm font-bold text-cream shadow-lift transition hover:-translate-y-1 hover:bg-deep md:hidden"
+        className="fixed bottom-4 right-4 z-50 inline-flex scale-90 items-center gap-2 rounded-full bg-terracotta px-5 py-4 text-sm font-bold text-cream shadow-lift transition hover:-translate-y-1 hover:bg-deep md:bottom-5 md:right-5 md:scale-100 md:hidden"
       >
         <MessageCircle size={18} /> Order
       </a>
@@ -125,14 +125,14 @@ function Header() {
       className="fixed inset-x-0 top-0 z-50 border-b border-cream/10 bg-deep/80 text-cream shadow-soft backdrop-blur-xl transition-all duration-500"
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-        <a href="#home" className="flex items-center gap-3">
-          <span className="rounded-2xl bg-cream p-2 shadow-soft">
+        <a href="#home" className="flex items-center gap-3 -translate-y-0.5">
+          <span className="flex items-center justify-center rounded-2xl bg-cream p-2 shadow-soft">
             <Image
               src="/images/logo.png"
               alt="Beit El Khetyar logo"
               width={118}
               height={76}
-              className="h-12 w-auto object-contain"
+              className="block h-12 w-auto object-contain"
               priority
             />
           </span>
@@ -164,145 +164,109 @@ function Header() {
 }
 
 function Hero() {
+  const mixedMashawiMessage = encodeURIComponent(
+    "Hi, I'd like to order the Mixed Mashawi please."
+  );
+
   return (
-    <section
-      id="home"
-      className="relative min-h-screen overflow-hidden bg-paper pt-24 text-deep"
-    >
+    <section id="home" className="relative overflow-hidden bg-paper pt-24 text-deep">
       <div className="absolute inset-0 paper-texture opacity-70" />
 
-      <div className="absolute right-10 top-32 h-80 w-80 rounded-full bg-gold/10 blur-3xl" />
-      <div className="absolute left-10 bottom-20 h-72 w-72 rounded-full bg-olive/5 blur-3xl" />
-
-      <div className="relative mx-auto grid min-h-[72vh] max-w-7xl items-center gap-14 px-4 py-8 lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="relative mx-auto grid min-h-[calc(100vh-96px)] max-w-7xl items-center gap-10 px-4 py-6 lg:grid-cols-[0.88fr_1.12fr]">
         <div className="max-w-2xl">
-          <div className="mb-5 flex items-center gap-4">
-            <p className="arabic text-3xl text-olive md:text-4xl">
-              سفرة دايمة...!
-            </p>
-
-            <div className="hidden h-px w-14 bg-olive/20 md:block" />
+          <div className="mb-4 flex items-center gap-4">
+            <p className="arabic text-3xl text-olive md:text-4xl">سفرة دايمة...!</p>
+            <div className="hidden h-px w-20 bg-olive/20 md:block" />
           </div>
 
-          <h1 className="font-display text-5xl font-semibold leading-[0.92] tracking-tight text-deep md:text-[4.5rem]">
-            Warm Levantine breakfast,
-            shawarma & grills
-            in Abu Dhabi.
+          <h1 className="font-display text-[3.4rem] md:text-[3.7rem] font-semibold leading-[0.92] tracking-tight text-deep md:text-[3.7rem]">
+            Warm Levantine breakfast, shawarma & grills in Abu Dhabi.
           </h1>
 
-          <p className="mt-7 max-w-xl text-lg leading-8 text-ink/68 md:text-xl">
-            Fresh bread, hummous, foul, shawarma, grills, and generous Levantine
-            plates served daily across Beit El Khetyar branches in Abu Dhabi.
+          <p className="mt-5 max-w-xl text-lg leading-8 text-ink/68">
+            Home-cooked Levantine plates, generous portions, and the kind of warmth
+            that keeps Abu Dhabi coming back.
           </p>
 
-          <div className="mt-7 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
               href={whatsappLink}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-[#c96d3a] px-8 py-4 text-sm font-bold text-cream shadow-soft transition duration-300 hover:-translate-y-0.5 hover:bg-deep"
+              className="inline-flex items-center gap-2 rounded-full bg-[#c96d3a] px-7 py-3.5 text-sm font-bold text-cream shadow-soft transition hover:-translate-y-0.5 hover:bg-deep"
             >
-              <MessageCircle size={18} />
-              Order on WhatsApp
+              <MessageCircle size={17} /> Order on WhatsApp
             </a>
 
             <a
               href="#menu"
-              className="inline-flex items-center gap-2 rounded-full border border-olive/15 bg-transparent px-7 py-4 text-sm font-semibold text-olive transition duration-300 hover:bg-olive hover:text-cream"
+              className="inline-flex items-center gap-2 rounded-full border border-olive/15 px-7 py-3.5 text-sm font-semibold text-olive transition hover:bg-olive hover:text-cream"
             >
-              View Menu
-              <ArrowRight size={16} />
+              View Menu <ArrowRight size={16} />
             </a>
           </div>
 
-          <div className="mt-5 flex flex-wrap items-center gap-4 text-sm">
+          <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
             <span className="flex items-center gap-2 text-olive">
               <span className="text-green-600">●</span>
               Open daily 7AM–1AM
             </span>
-
-            <span className="hidden text-olive/20 md:block">|</span>
-
-            <span className="text-ink/55">
-              3 branches across Abu Dhabi
+            <span className="text-olive/20">|</span>
+            <span className="text-ink/55">3 branches across Abu Dhabi</span>
+            <span className="rounded-full border border-olive/10 bg-cream px-3 py-1 text-xs font-semibold text-[#f97316] shadow-sm">
+              Talabat
             </span>
-
-            <span className="hidden text-olive/20 md:block">|</span>
-
-            <div className="flex items-center gap-2">
-              <span className="rounded-full border border-olive/10 bg-cream px-3 py-1 text-xs font-semibold text-olive shadow-sm">
-                Talabat
-              </span>
-
-              <span className="rounded-full border border-olive/10 bg-cream px-3 py-1 text-xs font-semibold text-olive shadow-sm">
-                Careem
-              </span>
-            </div>
+            <span className="rounded-full border border-olive/10 bg-cream px-3 py-1 text-xs font-semibold text-olive shadow-sm">
+              Careem
+            </span>
           </div>
-        </div>
-
-        <div className="relative -translate-y-10">
-          <div className="absolute -right-8 -top-8 h-56 w-56 rounded-full border border-olive/10" />
 
           <a
             href="https://www.google.com/search?q=beit+el+khetyar+abu+dhabi"
             target="_blank"
             rel="noreferrer"
-            className="absolute -top-10 right-0 z-20 flex w-[560px] max-w-[92vw] items-center gap-5 rounded-[1.75rem] border border-olive/10 bg-[#f5f0e6]/95 px-7 py-5 shadow-[0_15px_40px_rgba(0,0,0,0.08)] backdrop-blur transition duration-300 hover:-translate-y-1"
+            className="mt-2 flex max-w-xl items-center justify-between gap-4 rounded-2xl border border-[#d9ccaa] bg-[#fffdf7] px-5 py-4 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition hover:-translate-y-0.5"
           >
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1 text-[1.55rem] leading-none text-[#d4a85a]">
-                ★★★★★
+            <div className="flex items-center gap-4">
+              <div className="text-[1.2rem] md:text-[1.45rem] leading-none text-[#d4a85a]">★★★★★</div>
+
+              <div className="flex flex-col leading-tight">
+                <span className="text-sm md:text-base font-bold text-deep">
+                  4.7 ★ based on 1,200+ Google reviews
+                </span>
+                <span className="text-sm text-ink/55">Loved across Abu Dhabi</span>
               </div>
-
-              <span className="mt-2 text-xs font-bold uppercase tracking-[0.18em] text-olive/55">
-                Google Verified
-              </span>
-            </div>
-
-            <div className="h-14 w-px bg-olive/10" />
-
-            <div className="flex flex-1 flex-col pr-28">
-              <span className="text-2xl font-black tracking-tight text-deep">
-                4.7 ★
-              </span>
-
-              <span className="mt-1 text-base font-semibold text-deep">
-                Google Reviews
-              </span>
-
-              <span className="mt-2 text-sm leading-6 text-ink/55">
-                1,200+ reviews from customers across Abu Dhabi
-              </span>
             </div>
 
             <img
               src="/images/award.png"
               alt="Tripadvisor Travellers Choice Award"
-              className="absolute right-8 top-1/2 h-24 w-auto -translate-y-1/2 object-contain opacity-95"
+              className="h-24 w-auto object-contain"
             />
           </a>
+        </div>
 
-          <div className="group relative overflow-hidden rounded-[2.5rem] border border-olive/10 bg-cream p-3 shadow-lift transition duration-700 hover:scale-[1.01]">
+        <div className="relative">
+          <div className="group relative overflow-hidden rounded-[2.4rem] border border-olive/10 bg-cream p-3 shadow-lift transition hover:scale-[1.01]">
             <img
               src="/images/bbq.jpg"
               alt="Mixed Mashawi grill platter from Beit El Khetyar"
-              className="h-[500px] w-full rounded-[2rem] object-cover object-center transition duration-700 group-hover:scale-[1.03]"
+              className="h-[420px] md:h-[560px] w-full rounded-[1.9rem] object-cover object-center transition duration-700 group-hover:scale-[1.03]"
             />
 
-            <div className="absolute inset-3 rounded-[2rem] bg-gradient-to-t from-deep/35 via-transparent to-transparent" />
+            <div className="absolute inset-3 rounded-[1.9rem] bg-gradient-to-t from-deep/35 via-transparent to-transparent" />
 
-            <div className="absolute bottom-8 left-8 rounded-2xl border border-olive/10 bg-[#f5f0e6] px-5 py-4 shadow-soft">
+            <div className="absolute bottom-7 left-7 rounded-2xl border border-olive/10 bg-[#f5f0e6] px-5 py-4 shadow-soft">
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-olive/55">
                 Bestseller
               </p>
 
-              <p className="mt-1 font-display text-2xl font-semibold text-deep">
+              <p className="mt-1 font-display text-3xl font-semibold text-deep">
                 Mixed Mashawi
               </p>
 
               <a
-                href={whatsappLink}
+                href={`https://wa.me/${whatsappNumber}?text=${mixedMashawiMessage}`}
                 target="_blank"
                 rel="noreferrer"
                 className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-olive transition hover:gap-3"
@@ -317,7 +281,6 @@ function Hero() {
   );
 }
 function CelebrityStrip() {
-  
   const guests = [
     {
       name: "Shaquille O’Neal",
@@ -343,17 +306,17 @@ function CelebrityStrip() {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#182118] px-4 py-20 text-cream">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(212,168,90,0.12),transparent_30%),radial-gradient(circle_at_80%_75%,rgba(255,255,255,0.05),transparent_28%)]" />
+    <section className="relative overflow-hidden bg-[#182118] px-4 py-10 text-cream">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(212,168,90,0.1),transparent_30%),radial-gradient(circle_at_80%_75%,rgba(255,255,255,0.04),transparent_28%)]" />
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="mb-14 grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
+        <div className="mb-8 grid gap-5 lg:grid-cols-[1fr_0.7fr] lg:items-end">
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.28em] text-gold/70">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-gold/70">
               Guest Wall
             </p>
 
-            <h2 className="font-display text-5xl font-semibold leading-[0.95] tracking-tight text-cream md:text-7xl">
+            <h2 className="font-display text-[3.2rem] font-semibold leading-[0.95] tracking-tight text-cream md:text-6xl">
               Spotted at
               <br />
               Beit El Khetyar.
@@ -361,27 +324,25 @@ function CelebrityStrip() {
           </div>
 
           <div>
-            <p className="arabic mb-4 text-3xl text-gold/80">
+            <p className="arabic mb-3 text-3xl text-gold/80">
               ضيوفنا
             </p>
 
-            <p className="max-w-md text-base leading-7 text-cream/62">
+            <p className="max-w-md text-sm leading-6 text-cream/62">
               Familiar faces, creator visits, and moments naturally shared
               around the Beit El Khetyar table.
             </p>
           </div>
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr_0.9fr]">
-          {guests.map((guest, index) => (
+        <div className="grid gap-5 lg:grid-cols-3">
+          {guests.map((guest) => (
             <a
               key={guest.name}
               href={`https://instagram.com/${guest.handle.replace("@", "")}`}
               target="_blank"
               rel="noreferrer"
-              className={`group relative overflow-hidden rounded-[2rem] bg-[#202920] transition duration-500 hover:-translate-y-1 ${
-                index === 0 ? "lg:translate-y-4" : ""
-              }`}
+              className="group relative aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-[2rem] bg-[#202920] transition duration-500 hover:-translate-y-1"
             >
               <div className="absolute inset-0">
                 <img
@@ -393,27 +354,27 @@ function CelebrityStrip() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#111711] via-[#111711]/30 to-transparent" />
               </div>
 
-              <div className="relative flex min-h-[520px] flex-col justify-between p-7 md:p-8">
-                <div className="flex items-start justify-between">
-                  <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-gold/72">
+              <div className="relative flex h-full flex-col justify-between p-6 md:p-7">
+                <div className="flex items-start justify-between gap-4">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-gold/72">
                     {guest.label}
                   </span>
 
-                  <span className="text-sm text-cream/55">
+                  <span className="text-xs text-cream/55">
                     {guest.handle}
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="font-display text-4xl font-semibold leading-[1] text-cream md:text-5xl">
+                  <h3 className="font-display text-3xl font-semibold leading-[1] text-cream md:text-4xl">
                     {guest.name}
                   </h3>
 
-                  <p className="mt-4 max-w-sm text-base leading-7 text-cream/68">
+                  <p className="mt-3 max-w-sm text-sm leading-6 text-cream/68">
                     {guest.note}
                   </p>
 
-                  <span className="mt-7 inline-flex items-center gap-2 border-b border-gold/30 pb-1 text-sm font-semibold text-gold/90 transition group-hover:gap-3">
+                  <span className="mt-5 inline-flex items-center gap-2 border-b border-gold/30 pb-1 text-sm font-semibold text-gold/90 transition group-hover:gap-3">
                     Instagram ↗
                   </span>
                 </div>
@@ -422,7 +383,7 @@ function CelebrityStrip() {
           ))}
         </div>
 
-        <div className="mt-8 flex items-center justify-between border-t border-cream/10 pt-5 text-sm text-cream/45">
+        <div className="mt-5 flex max-w-xl flex-col gap-4 rounded-2xl border border-[#d9ccaa] bg-[#fffdf7] px-5 py-4 shadow-[0_2px_12px_rgba(0,0,0,0.08)] md:flex-row md:items-center md:justify-between">
           <span>
             Moments shared naturally by visitors and creators.
           </span>
@@ -463,7 +424,7 @@ function Story() {
             <img
               src={storyImages[activeImage]}
               alt="Guests dining at Beit El Khetyar"
-              className="h-[500px] w-full rounded-[2.25rem] object-cover object-center transition duration-700"
+              className="h-[360px] md:h-[500px] w-full rounded-[2.25rem] object-cover object-center transition duration-700"
             />
           </div>
 
@@ -488,7 +449,7 @@ function Story() {
             قصتنا
           </p>
 
-          <h2 className="mt-3 font-display text-5xl font-semibold leading-tight text-deep md:text-6xl">
+          <h2 className="mt-3 font-display text-[3.1rem] font-semibold leading-[0.95] tracking-tight text-deep md:text-6xl">
             A table people return to.
           </h2>
 
@@ -607,37 +568,37 @@ function DigitalMenuPreview() {
     {
       en: 'Hummous Dishes',
       ar: 'أطباق الحمص',
-      desc: 'Creamy bowls finished with olive oil.',
+      desc: 'Creamy hummous bowls finished with olive oil and warm bread.',
       image: '/images/humus.jpg',
     },
     {
       en: 'Falafel',
       ar: 'فلافل',
-      desc: 'Crisp, golden, and made for breakfast tables.',
+      desc: 'Crisp, golden pieces made for breakfast tables and sharing.',
       image: '/images/falafel plate.jpg',
     },
     {
       en: 'Fatteh',
       ar: 'فتات',
-      desc: 'Layered comfort with yoghurt, bread, and warm toppings.',
+      desc: 'Layered comfort with yoghurt, toasted bread, and warm toppings.',
       image: '/images/Eggplant-fatteh-featured-photo.jpg',
     },
     {
       en: 'BBQ',
       ar: 'مشاوي',
-      desc: 'Grilled plates with smoky Levantine flavor.',
+      desc: 'Grilled plates with smoky Levantine flavor and generous portions.',
       image: '/images/bbq.jpg',
     },
     {
       en: 'Manakeesh',
       ar: 'مناقيش',
-      desc: 'Oven-baked classics with zaatar, cheese, and more.',
+      desc: 'Oven-baked classics with zaatar, cheese, and warm dough.',
       image: '/images/manakeesh.jpg',
     },
     {
       en: 'Shawarma',
       ar: 'الشاورما',
-      desc: 'Juicy wraps with pickles, garlic, and toasted bread.',
+      desc: 'Juicy wraps with garlic, pickles, toasted bread, and fries.',
       image: '/images/arabic shawarma.jpg',
     },
   ];
@@ -645,36 +606,34 @@ function DigitalMenuPreview() {
   return (
     <section
       id="digital-menu"
-      className="relative overflow-hidden bg-paper py-28"
+      className="relative overflow-hidden bg-paper px-4 py-20"
     >
       <div className="absolute inset-0 paper-texture opacity-60" />
 
-      <div className="relative mx-auto max-w-7xl px-4">
-        <div className="mx-auto mb-16 max-w-3xl text-center">
-          <p className="arabic text-3xl text-olive">
+      <div className="relative mx-auto max-w-7xl">
+        <div className="mx-auto mb-12 max-w-3xl text-center">
+          <p className="arabic text-3xl text-olive md:text-4xl">
             قائمة رقمية
           </p>
 
-          <h2 className="mt-3 font-display text-5xl font-semibold leading-[1] tracking-tight text-deep md:text-7xl">
-            A simpler way to browse the table.
+          <h2 className="mt-3 font-display text-5xl font-semibold leading-tight tracking-tight text-deep md:text-6xl">
+            Browse the table.
           </h2>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-ink/65">
-            Explore Beit El Khetyar’s most-loved categories with a clean,
-            visual menu made for quick browsing.
+          <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-ink/60 md:text-lg">
+            A clean visual guide to Beit El Khetyar favorites before opening
+            the full flipbook menu.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {categories.map((category) => (
             <a
               key={category.en}
-              href={whatsappLink}
-              target="_blank"
-              rel="noreferrer"
-              className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-olive/10 bg-cream shadow-soft transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)]"
+              href="#menu"
+              className="group flex min-h-[340px] md:min-h-[410px] flex-col overflow-hidden rounded-[1.75rem] border border-olive/10 bg-[#f6f1e8] shadow-soft transition duration-500 hover:-translate-y-1 hover:shadow-lift"
             >
-              <div className="h-64 overflow-hidden bg-paper">
+              <div className="h-44 md:h-52 overflow-hidden bg-cream">
                 <img
                   src={category.image}
                   alt={category.en}
@@ -682,21 +641,21 @@ function DigitalMenuPreview() {
                 />
               </div>
 
-              <div className="flex flex-1 flex-col p-7">
-                <p className="arabic text-3xl text-olive">
+              <div className="flex flex-1 flex-col p-6">
+                <p className="arabic text-3xl leading-none text-olive">
                   {category.ar}
                 </p>
 
-                <h3 className="mt-2 font-display text-3xl font-semibold tracking-tight text-deep">
+                <h3 className="mt-3 font-display text-3xl font-semibold leading-tight tracking-tight text-deep">
                   {category.en}
                 </h3>
 
-                <p className="mt-4 leading-7 text-ink/62">
+                <p className="mt-3 max-w-sm leading-7 text-ink/62">
                   {category.desc}
                 </p>
 
-                <span className="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-bold text-olive">
-                  Explore category
+                <span className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-bold text-olive">
+                  View full menu
                   <ArrowRight
                     size={15}
                     className="transition-transform duration-300 group-hover:translate-x-1"
@@ -724,7 +683,7 @@ function Branches() {
         <div className="mt-12 grid gap-5 lg:grid-cols-3">
           {branches.map((branch) => (
             <article key={branch.name} className="rounded-[2rem] border border-olive/15 bg-cream p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-lift">
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-olive text-cream"><MapPin /></div>
+              <div className="mb-6 flex h-10 md:h-14 w-14 items-center justify-center rounded-2xl bg-olive text-cream"><MapPin /></div>
               <p className="text-sm font-bold uppercase tracking-[0.22em] text-olive/70">{branch.area}</p>
               <h3 className="mt-2 text-2xl font-black text-deep">{branch.name}</h3>
               <div className="mt-5 grid gap-3 text-ink/70">
